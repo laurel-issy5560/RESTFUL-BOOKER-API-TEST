@@ -1,0 +1,38 @@
+name: Newman API Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  newman-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install Newman and Reporter
+      run: |
+        npm install newman
+        npm install newman-reporter-htmlextra
+
+    - name: Run Newman Collection
+      run: |
+        npx newman run "PETSTORE API.postman_collection.json" \
+          -e "QA ENV.postman_environment.json" \
+          -r htmlextra \
+          --reporter-htmlextra-export "report.html"
+
+    - name: Upload Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: Newman HTML Report
+        path: report.html
