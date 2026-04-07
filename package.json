@@ -1,0 +1,16 @@
+{
+  "name": "restful-bookerapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "newman run RESTFUL-BOOKER.postman_collection.json -e \"QA ENV.postman_environment.json\" --reporters cli,html,junit --reporter-html-export newman-report.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "newman": "^6.2.2"
+  }
+}
